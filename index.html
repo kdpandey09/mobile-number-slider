@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+        }
+
+        .form-container {
+            max-width: 400px;
+            width: 100%;
+            padding: 20px;
+            box-sizing: border-box;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input[type="text"],
+        input[type="range"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 16px;
+            box-sizing: border-box;
+        }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 10px;
+            border-radius: 5px;
+            background-color: #ddd;
+            outline: none;
+            margin-bottom: 20px;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #4caf50;
+            cursor: pointer;
+        }
+
+        input[type="range"]::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: #4caf50;
+            cursor: pointer;
+        }
+
+        #mobileValue {
+            text-align: center;
+            font-size: 14px;
+            color: #555;
+        }
+
+        #celebration-popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            z-index: 1000;
+        }
+
+        @keyframes celebrationAnimation {
+            0% {
+                transform: scale(0);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        @media screen and (max-width: 600px) {
+            .form-container {
+                max-width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="form-container">
+        <form onsubmit="showCelebrationPopup(); return false;">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="fantasy">Fantasy:</label>
+            <input type="text" id="fantasy" name="fantasy" required>
+
+            <label for="mobile">Mobile Number:</label>
+            <input type="range" id="mobile" name="mobile" min="0" max="9999999999" step="1" value="0"
+                oninput="updateMobileValue(this.value)">
+            <div id="mobileValue">0</div>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+
+    <div id="celebration-popup">
+        <h2>You have successfully completed Anya's fantasy!</h2>
+    </div>
+
+    <script>
+        function updateMobileValue(value) {
+            document.getElementById('mobileValue').innerText = value;
+        }
+
+        function showCelebrationPopup() {
+            const celebrationPopup = document.getElementById('celebration-popup');
+            celebrationPopup.style.display = 'block';
+            celebrationPopup.style.animation = 'celebrationAnimation 1s ease-out';
+
+            setTimeout(() => {
+                celebrationPopup.style.display = 'none';
+            }, 3000); // Hide the popup after 3 seconds
+        }
+    </script>
+
+</body>
+
+</html>
